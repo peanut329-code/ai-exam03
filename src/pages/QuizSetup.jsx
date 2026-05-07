@@ -78,25 +78,26 @@ export default function QuizSetup({ navigate }) {
           <table className="text-xs border-collapse w-full">
             <thead>
               <tr className="bg-amber-100">
-                {['題目','選項A','選項B','選項C','選項D','答案','說明'].map(h => (
+                {['NO','題目','答案','選項A','選項B','選項C','選項D','題目解析'].map(h => (
                   <th key={h} className="border border-amber-200 px-2 py-1 text-left">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td className="border border-amber-200 px-2 py-1 text-gray-400">1</td>
                 <td className="border border-amber-200 px-2 py-1">台灣最高的山？</td>
+                <td className="border border-amber-200 px-2 py-1 font-bold text-green-700">A</td>
                 <td className="border border-amber-200 px-2 py-1">玉山</td>
                 <td className="border border-amber-200 px-2 py-1">雪山</td>
                 <td className="border border-amber-200 px-2 py-1">合歡山</td>
                 <td className="border border-amber-200 px-2 py-1">阿里山</td>
-                <td className="border border-amber-200 px-2 py-1 font-bold text-green-700">A</td>
                 <td className="border border-amber-200 px-2 py-1 text-gray-500">可空白</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-xs text-amber-600">答案欄填 A、B、C 或 D，說明欄可省略</p>
+        <p className="mt-2 text-xs text-amber-600">答案欄填 A、B、C 或 D，題目解析可省略。NO 欄可有可無。</p>
       </div>
 
       {error && (

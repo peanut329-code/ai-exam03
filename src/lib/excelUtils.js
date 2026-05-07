@@ -38,7 +38,7 @@ function parseRows(rows) {
   const cIdx  = findCol(headers, ['選項c', 'c', '(c)', 'option c', 'optionc'])
   const dIdx  = findCol(headers, ['選項d', 'd', '(d)', 'option d', 'optiond'])
   const ansIdx = findCol(headers, ['答案', 'answer', 'ans', '正確答案'])
-  const expIdx = findCol(headers, ['說明', '解析', '解說', 'explanation', 'exp'])
+  const expIdx = findCol(headers, ['題目解析', '說明', '解析', '解說', 'explanation', 'exp'])
 
   if (qIdx === -1 || ansIdx === -1) return []
 
