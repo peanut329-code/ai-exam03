@@ -66,6 +66,10 @@ export default function App() {
         {page === 'result'    && resultData && <ResultPage data={resultData} navigate={navigate} />}
         {page === 'review'    && <ReviewPage navigate={navigate} />}
       </main>
+
+      <footer className="text-center py-4 text-xs text-gray-400">
+        Designed &amp; Developed by Lingo｜2026
+      </footer>
     </div>
   )
 }

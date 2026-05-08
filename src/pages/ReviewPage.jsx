@@ -130,7 +130,15 @@ export default function ReviewPage({ navigate }) {
             SM-2 間隔複習
           </span>
         </h2>
-        <span className="text-sm text-gray-400">{current + 1} / {cards.length}</span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => exportToExcel(cards, '待複習題目.xlsx')}
+            className="text-xs text-orange-500 hover:underline font-medium"
+          >
+            匯出清單 ↓
+          </button>
+          <span className="text-sm text-gray-400">{current + 1} / {cards.length}</span>
+        </div>
       </div>
 
       {/* 進度列 */}

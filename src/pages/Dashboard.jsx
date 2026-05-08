@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getStats, syncFromSupabase } from '../lib/storage'
+import { getStats, getWrongAnswers, getDueCards, syncFromSupabase } from '../lib/storage'
 import { isSupabaseConfigured } from '../lib/supabase'
+import { exportToExcel } from '../lib/excelUtils'
 
 export default function Dashboard({ navigate, username }) {
   const [stats, setStats] = useState({ total: 0, dueToday: 0, mastered: 0 })
@@ -57,6 +58,28 @@ export default function Dashboard({ navigate, username }) {
           📁 上傳題庫，開始答題
         </button>
       </div>
+
+      {/* 匯出清單 */}
+      {stats.total > 0 && (
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <p className="font-medium text-gray-700 text-sm mb-3">匯出題目清單</p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => exportToExcel(getDueCards(), '今日待複習題目.xlsx')}
+              disabled={stats.dueToday === 0}
+              className="flex-1 py-2 bg-orange-50 text-orange-600 rounded-xl text-sm font-medium hover:bg-orange-100 disabled:opacity-40 transition"
+            >
+              📥 今日待複習（{stats.dueToday} 題）
+            </button>
+            <button
+              onClick={() => exportToExcel(getWrongAnswers(), '所有錯題清單.xlsx')}
+              className="flex-1 py-2 bg-blue-50 text-blue-600 rounded-xl text-sm font-medium hover:bg-blue-100 transition"
+            >
+              📥 全部錯題（{stats.total} 題）
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Supabase 同步 */}
       {isSupabaseConfigured() && (
