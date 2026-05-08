@@ -69,12 +69,12 @@ export function exportToExcel(questions, filename = '錯題清單.xlsx') {
   const data = questions.map((q, i) => ({
     '編號': i + 1,
     '題目': q.question,
+    '答案': q.answer,
     '選項A': q.options?.[0]?.text ?? '',
     '選項B': q.options?.[1]?.text ?? '',
     '選項C': q.options?.[2]?.text ?? '',
     '選項D': q.options?.[3]?.text ?? '',
-    '正確答案': q.answer,
-    '說明': q.explanation ?? '',
+    '題目解析': q.explanation ?? '',
     '複習次數': q.repetitions ?? 0,
     '下次複習日': q.nextReview
       ? new Date(q.nextReview).toLocaleDateString('zh-TW')
