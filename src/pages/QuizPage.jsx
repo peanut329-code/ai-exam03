@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { addWrongAnswers } from '../lib/storage'
 
 export default function QuizPage({ data, navigate }) {
   const { questions, fileName } = data
@@ -6,6 +7,7 @@ export default function QuizPage({ data, navigate }) {
   const [selected, setSelected] = useState(null)
   const [confirmed, setConfirmed] = useState(false)
   const [answers, setAnswers] = useState([])
+  const [addedToReview, setAddedToReview] = useState(false)
 
   const q = questions[current]
   const progress = ((current) / questions.length) * 100
@@ -22,9 +24,15 @@ export default function QuizPage({ data, navigate }) {
       setCurrent(c => c + 1)
       setSelected(null)
       setConfirmed(false)
+      setAddedToReview(false)
     } else {
       navigate('result', { answers: [...answers], fileName })
     }
+  }
+
+  const handleAddToReview = () => {
+    addWrongAnswers([{ ...q, userAnswer: selected, correct: selected === q.answer }], fileName)
+    setAddedToReview(true)
   }
 
   const optionStyle = (key) => {
@@ -106,12 +114,25 @@ export default function QuizPage({ data, navigate }) {
           確認答案
         </button>
       ) : (
-        <button
-          onClick={next}
-          className="w-full py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition shadow"
-        >
-          {current + 1 < questions.length ? '下一題 →' : '查看結果 →'}
-        </button>
+        <div className="space-y-2">
+          <button
+            onClick={next}
+            className="w-full py-3 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition shadow"
+          >
+            {current + 1 < questions.length ? '下一題 →' : '查看結果 →'}
+          </button>
+          <button
+            onClick={handleAddToReview}
+            disabled={addedToReview}
+            className={`w-full py-2.5 rounded-2xl text-sm font-semibold transition border-2 ${
+              addedToReview
+                ? 'bg-orange-50 text-orange-400 border-orange-200 cursor-default'
+                : 'bg-white text-orange-500 border-orange-300 hover:bg-orange-50 active:scale-95'
+            }`}
+          >
+            {addedToReview ? '✓ 已加入複習清單' : '📌 加入複習清單'}
+          </button>
+        </div>
       )}
     </div>
   )
